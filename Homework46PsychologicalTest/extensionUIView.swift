@@ -13,8 +13,7 @@ extension UIView{
         let gradientLayer = CAGradientLayer()
         gradientLayer.frame = view.bounds
         gradientLayer.colors = [UIColor.systemBlue.cgColor,UIColor.systemGreen.cgColor]
-        gradientLayer.locations = [0,0.6,1]
-        gradientLayer.shouldRasterize = true
+        gradientLayer.locations = [0,0.8,1]
         view.layer.insertSublayer(gradientLayer, at: 0)
     }
 }

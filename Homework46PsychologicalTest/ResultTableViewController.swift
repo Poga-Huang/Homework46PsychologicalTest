@@ -12,15 +12,24 @@ class ResultTableViewController: UITableViewController {
     struct PropertyKeys{
         static let resultCellIdentifier = "resultCell"
     }
+    
     var resultData = [Result]()
-
+    
+    var addGradientLayer = false
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        if addGradientLayer == false {
+            addGradientLayer = true
+            tableView.backgroundView = UIView(frame: tableView.bounds)
+            view.makeGradientLayer(view: tableView.backgroundView!)
+           }
+       }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         print(resultData)
-    }
-    override func viewDidLayoutSubviews() {
-        view.makeGradientLayer(view: view)
     }
 
     // MARK: - Table view data source
@@ -28,7 +37,7 @@ class ResultTableViewController: UITableViewController {
         return resultData.count
     }
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let resultCell = tableView.dequeueReusableCell(withIdentifier: PropertyKeys.resultCellIdentifier) as! ResultTableViewCell
+        guard let resultCell = tableView.dequeueReusableCell(withIdentifier: PropertyKeys.resultCellIdentifier) as? ResultTableViewCell else{return UITableViewCell()}
         let result = resultData[indexPath.row]
         resultCell.updateContent(result: result)
         return resultCell
